@@ -1,0 +1,26 @@
+#container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+    justify-items: stretch;
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+}
+
+.item {
+    border: 1px solid;
+    background-color: yellow;
+}
+
+button {
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+#rollButtonContainer{
+    text-align: center;
+}
+
+h1{
+    text-align: center;
+}
