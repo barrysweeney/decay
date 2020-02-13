@@ -11,8 +11,6 @@ totalOnes = 0;
 
 rollButton.addEventListener("click", rollDice);
 
-console.log(squaresArray);
-
 function rollDice() {
   // roll all the remaining dice and check them each individually
   for (i = 0; i < numDice; i++) {
