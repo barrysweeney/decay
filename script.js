@@ -1,14 +1,10 @@
 // this version is currently for a hardcoded 100 dice
 
-// TODO: each square (dice) has a unique id
-// maybe store these in array
-// when dice is landing on 1 then that square turns black and is removed from array
-// could do this linearly first and then randomly
+// TODO: change random square color in grid instead of linearly 
 
 const rollButton = document.getElementById("roll");
 const squaresCollection = document.getElementsByClassName("item"); // squares represent dice
 const squaresArray = Array.from(squaresCollection); // converts collection to array
-const decayedSquares = []
 numDice = 100;
 numRolls = 0;
 totalOnes = 0;
