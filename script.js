@@ -1,77 +1,78 @@
 // TODO: generate divs automatically
-// fix levels of abstraction
 
-const rollButton = document.getElementById("roll");
+const timeStepButton = document.getElementById("timeStep");
 const resetButton = document.getElementById("reset");
-let squaresCollection; // squares represent dice
-let squaresArray;
-let decayedSquares;
-let numDice;
-let numRolls;
-let totalOnes;
+let nucleonsCollection;
+let nucleonsArray;
+let decayedNucleons;
+let undecayedNucleons;
+let numTimeSteps;
+let nucleonsDeclayedThisTimeStep;
+let probabilityOfDecay;
 
-setInitialConditons();
+setInitialConditions();
 
-function setInitialConditons() {
-  squaresCollection = document.getElementsByClassName("item");
-  squaresArray = Array.from(squaresCollection); // converts collection to array
-  decayedSquares = [];
-  numDice = squaresArray.length;
-  numRolls = 0;
-  totalOnes = 0;
+function setInitialConditions() {
+  probabilityOfDecay = prompt("Please enter the probability of decay")
+  nucleonsCollection = document.getElementsByClassName("item");
+  nucleonsArray = Array.from(nucleonsCollection); // converts collection to array
+  decayedNucleons = [];
+  undecayedNucleons = nucleonsArray.length;
+  numTimeSteps = 0;
+  nucleonsDeclayedThisTimeStep = 0;
 
   document.getElementById(
-    "rollsElapsed"
-  ).innerHTML = `Rolls complete: ${numRolls}`;
+    "timeStepsElapsed"
+  ).innerHTML = `Time Steps Complete: ${numTimeSteps}`;
   document.getElementById(
-    "diceRemaining"
-  ).innerHTML = `Dice remaining: ${numDice}`;
+    "undecayedNucleonsRemaining"
+  ).innerHTML = `Undecayed Nucleons Remaining: ${undecayedNucleons}`;
 
-  rollButton.addEventListener("click", rollDice);
+  timeStepButton.addEventListener("click", makeTimeStep);
 }
 
-function rollDice() {
-  // roll all the remaining dice and check them each individually
-  for (i = 0; i <= numDice; i++) {
-    // generate random number representing the face of the die
-    result = Math.floor(Math.random() * 6) + 1;
-    // if a die lands on one then it has "decayed"
+function makeTimeStep() {
+  // simulate all the remaining undecayed nucleons and check them each individually
+  for (i = 0; i <= undecayedNucleons; i++) {
+    // generate random number representing the state of the die
+    result = Math.floor(Math.random() * (1/probabilityOfDecay)) + 1; 
+    // if the state of the nucleon is one then it has "decayed"
     if (result == 1) {
-      totalOnes += 1;
+      nucleonsDeclayedThisTimeStep += 1;
     }
   }
-  numDice -= totalOnes;
-  numRolls += 1;
+  undecayedNucleons -= nucleonsDeclayedThisTimeStep;
+  numTimeSteps += 1;
 
-  for (i = 0; i < totalOnes; i++) {
-    // each iteration changes a square to black
-    indexToRemove = Math.floor(Math.random() * squaresArray.length);
-    squaresArray[indexToRemove].style.cssText = "background-color: black;";
-    decayedSquares.push(squaresArray[indexToRemove]);
-    squaresArray.splice(indexToRemove, 1);
+  for (i = 0; i < nucleonsDeclayedThisTimeStep; i++) {
+    // each iteration changes a tile to black
+    indexToRemove = Math.floor(Math.random() * nucleonsArray.length);
+    nucleonsArray[indexToRemove].style.cssText = "background-color: black;";
+    decayedNucleons.push(nucleonsArray[indexToRemove]);
+    nucleonsArray.splice(indexToRemove, 1);
   }
 
-  totalOnes = 0; // resetting for next roll
+  nucleonsDeclayedThisTimeStep = 0; // resetting for next timeStep
 
-  // prevents number of rolls being incremented when no dice remain
-  if (numDice === 0) {
-    rollButton.removeEventListener("click", rollDice);
+  // prevents number of timeSteps being incremented when no nucleons remain
+  if (undecayedNucleons === 0) {
+    timeStepButton.removeEventListener("click", makeTimeStep);
   }
 
   document.getElementById(
-    "rollsElapsed"
-  ).innerHTML = `Rolls complete: ${numRolls}`;
+    "timeStepsElapsed"
+  ).innerHTML = `Time Steps Complete: ${numTimeSteps}`;
   document.getElementById(
-    "diceRemaining"
-  ).innerHTML = `Dice remaining: ${numDice}`;
+    "undecayedNucleonsRemaining"
+  ).innerHTML = `Undecayed Nucleons Remaining: ${undecayedNucleons}`;
 }
 
 resetButton.addEventListener("click", function(event) {
-  for (i = 0; i < squaresArray.length; i++) {
-    squaresArray[i].style.cssText = "background-color: yellow;";
+  for (i = 0; i < nucleonsArray.length; i++) {
+    nucleonsArray[i].style.cssText = "background-color: yellow;";
   }
-  for (i = 0; i < decayedSquares.length; i++) {
-    decayedSquares[i].style.cssText = "background-color: yellow;";
+  for (i = 0; i < decayedNucleons.length; i++) {
+    decayedNucleons[i].style.cssText = "background-color: yellow;";
   }
-  setInitialConditons();
+  setInitialConditions();
 });
