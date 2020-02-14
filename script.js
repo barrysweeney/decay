@@ -1,11 +1,8 @@
-// this version is currently for a hardcoded 100 dice
-
-// TODO: change random square color in grid instead of linearly 
-
 const rollButton = document.getElementById("roll");
 const squaresCollection = document.getElementsByClassName("item"); // squares represent dice
 const squaresArray = Array.from(squaresCollection); // converts collection to array
-numDice = 100;
+const decayedSquares = [];
+numDice = squaresArray.length;
 numRolls = 0;
 totalOnes = 0;
 
@@ -13,7 +10,7 @@ rollButton.addEventListener("click", rollDice);
 
 function rollDice() {
   // roll all the remaining dice and check them each individually
-  for (i = 0; i < numDice; i++) {
+  for (i = 0; i <= numDice; i++) {
     // generate random number representing the face of the die
     result = Math.floor(Math.random() * 6) + 1;
     // if a die lands on one then it has "decayed"
@@ -25,14 +22,12 @@ function rollDice() {
   numRolls += 1;
 
   for (i = 0; i < totalOnes; i++) {
-    squaresArray[i].style.cssText = "background-color: black;";
+    // each iteration changes a square to black
+    indexToRemove = Math.floor(Math.random() * squaresArray.length);
+    squaresArray[indexToRemove].style.cssText = "background-color: black;";
+    decayedSquares.push(squaresArray[indexToRemove]);
+    squaresArray.splice(indexToRemove, 1);
   }
-
-  // remove squares from squaresArray if they've "decayed"
-for(i=0; i<totalOnes; i++){
-    squaresArray.shift();
-}
-
 
   totalOnes = 0; // resetting for next roll
 
