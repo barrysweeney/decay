@@ -18,7 +18,7 @@ button {
   margin-bottom: 20px;
 }
 
-#rollButtonContainer {
+#timeStepButtonContainer {
   text-align: center;
 }
 
@@ -43,5 +43,5 @@ h1 {
 }
 
 #liveCounters {
-    padding: 0.5em;
+  padding: 0.5em;
 }
