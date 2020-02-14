@@ -1,12 +1,34 @@
-const rollButton = document.getElementById("roll");
-const squaresCollection = document.getElementsByClassName("item"); // squares represent dice
-const squaresArray = Array.from(squaresCollection); // converts collection to array
-const decayedSquares = [];
-numDice = squaresArray.length;
-numRolls = 0;
-totalOnes = 0;
+// TODO: generate divs automatically
+// fix levels of abstraction
 
-rollButton.addEventListener("click", rollDice);
+const rollButton = document.getElementById("roll");
+const resetButton = document.getElementById("reset");
+let squaresCollection; // squares represent dice
+let squaresArray;
+let decayedSquares;
+let numDice;
+let numRolls;
+let totalOnes;
+
+setInitialConditons();
+
+function setInitialConditons() {
+  squaresCollection = document.getElementsByClassName("item");
+  squaresArray = Array.from(squaresCollection); // converts collection to array
+  decayedSquares = [];
+  numDice = squaresArray.length;
+  numRolls = 0;
+  totalOnes = 0;
+
+  document.getElementById(
+    "rollsElapsed"
+  ).innerHTML = `Rolls complete: ${numRolls}`;
+  document.getElementById(
+    "diceRemaining"
+  ).innerHTML = `Dice remaining: ${numDice}`;
+
+  rollButton.addEventListener("click", rollDice);
+}
 
 function rollDice() {
   // roll all the remaining dice and check them each individually
@@ -43,3 +65,13 @@ function rollDice() {
     "diceRemaining"
   ).innerHTML = `Dice remaining: ${numDice}`;
 }
+
+resetButton.addEventListener("click", function(event) {
+  for (i = 0; i < squaresArray.length; i++) {
+    squaresArray[i].style.cssText = "background-color: yellow;";
+  }
+  for (i = 0; i < decayedSquares.length; i++) {
+    decayedSquares[i].style.cssText = "background-color: yellow;";
+  }
+  setInitialConditons();
+});
