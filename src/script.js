@@ -33,6 +33,8 @@ function setInitialConditions() {
   ).innerHTML = `Undecayed Nucleons Remaining: ${undecayedNucleons}`;
 
   timeStepButton.addEventListener("click", makeTimeStep);
+
+  plotData();
 }
 
 function makeTimeStep() {
@@ -98,7 +100,27 @@ const myChart = new Chart(ctx, {
           backgroundColor: "yellow",
           borderColor: "black",
           borderWidth: 1
-      }]
+      }],
+      
   },
+  options: {
+    responsive: true,
+    scales: {
+      xAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'Time'
+        }
+      }],
+      yAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'Nucleons Remaining'
+        }
+      }]
+    }
+  }
 });
 }
