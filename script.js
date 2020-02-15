@@ -7,8 +7,10 @@ let nucleonsArray;
 let decayedNucleons;
 let undecayedNucleons;
 let numTimeSteps;
-let nucleonsDeclayedThisTimeStep;
+let nucleonsDecayedThisTimeStep;
 let probabilityOfDecay;
+let xAxisTimeSteps = [];
+let yAxisUndecayedNucleons = [];
 
 setInitialConditions();
 
@@ -18,8 +20,10 @@ function setInitialConditions() {
   nucleonsArray = Array.from(nucleonsCollection); // converts collection to array
   decayedNucleons = [];
   undecayedNucleons = nucleonsArray.length;
+  yAxisUndecayedNucleons = [undecayedNucleons]
   numTimeSteps = 0;
-  nucleonsDeclayedThisTimeStep = 0;
+  xAxisTimeSteps = [0];
+  nucleonsDecayedThisTimeStep = 0;
 
   document.getElementById(
     "timeStepsElapsed"
@@ -38,13 +42,15 @@ function makeTimeStep() {
     result = Math.floor(Math.random() * (1/probabilityOfDecay)) + 1; 
     // if the state of the nucleon is one then it has "decayed"
     if (result == 1) {
-      nucleonsDeclayedThisTimeStep += 1;
+      nucleonsDecayedThisTimeStep += 1;
     }
   }
-  undecayedNucleons -= nucleonsDeclayedThisTimeStep;
+  undecayedNucleons -= nucleonsDecayedThisTimeStep;
+  yAxisUndecayedNucleons.push(undecayedNucleons);
   numTimeSteps += 1;
+  xAxisTimeSteps.push(numTimeSteps)
 
-  for (i = 0; i < nucleonsDeclayedThisTimeStep; i++) {
+  for (i = 0; i < nucleonsDecayedThisTimeStep; i++) {
     // each iteration changes a tile to black
     indexToRemove = Math.floor(Math.random() * nucleonsArray.length);
     nucleonsArray[indexToRemove].style.cssText = "background-color: black;";
@@ -52,7 +58,7 @@ function makeTimeStep() {
     nucleonsArray.splice(indexToRemove, 1);
   }
 
-  nucleonsDeclayedThisTimeStep = 0; // resetting for next timeStep
+  nucleonsDecayedThisTimeStep = 0; // resetting for next timeStep
 
   // prevents number of timeSteps being incremented when no nucleons remain
   if (undecayedNucleons === 0) {
@@ -65,6 +71,8 @@ function makeTimeStep() {
   document.getElementById(
     "undecayedNucleonsRemaining"
   ).innerHTML = `Undecayed Nucleons Remaining: ${undecayedNucleons}`;
+
+  plotData();
 }
 
 resetButton.addEventListener("click", function(event) {
@@ -75,4 +83,22 @@ resetButton.addEventListener("click", function(event) {
     decayedNucleons[i].style.cssText = "background-color: yellow;";
   }
   setInitialConditions();
+  plotData();
 });
+
+function plotData(){
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+      labels: xAxisTimeSteps,
+      datasets: [{
+          label: 'Undecayed Nucleons',
+          data: yAxisUndecayedNucleons,
+          backgroundColor: "yellow",
+          borderColor: "black",
+          borderWidth: 1
+      }]
+  },
+});
+}
