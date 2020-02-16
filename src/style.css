@@ -45,3 +45,10 @@ h1 {
 #liveCounters {
   padding: 0.5em;
 }
+
+@media screen and (max-width: 800px) {
+  #rightSection, #leftSection {
+    width: 100%;
+    padding: 0.5em;
+  }
+}
