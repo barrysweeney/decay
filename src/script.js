@@ -2,6 +2,8 @@
 
 const timeStepButton = document.getElementById("timeStep");
 const resetButton = document.getElementById("reset");
+const ctx = document.getElementById('decayChart').getContext('2d'); // chart js convention to use ctx
+let decayChart;
 let nucleonsCollection;
 let nucleonsArray;
 let decayedNucleons;
@@ -74,7 +76,7 @@ function makeTimeStep() {
     "undecayedNucleonsRemaining"
   ).innerHTML = `Undecayed Nucleons Remaining: ${undecayedNucleons}`;
 
-  plotData();
+  updateChart();
 }
 
 resetButton.addEventListener("click", function(event) {
@@ -85,12 +87,11 @@ resetButton.addEventListener("click", function(event) {
     decayedNucleons[i].style.cssText = "background-color: yellow;";
   }
   setInitialConditions();
-  plotData();
+  updateChart();
 });
 
 function plotData(){
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
+  decayChart = new Chart(ctx, {
   type: 'line',
   data: {
       labels: xAxisTimeSteps,
@@ -123,4 +124,9 @@ const myChart = new Chart(ctx, {
     }
   }
 });
+}
+
+function updateChart(){
+  decayChart.destroy();
+  plotData();
 }
