@@ -18,11 +18,7 @@ button {
   margin-bottom: 20px;
 }
 
-#timeStepButtonContainer {
-  text-align: center;
-}
-
-#resetButtonContainer {
+#startButtonContainer, #pauseButtonContainer {
   text-align: center;
 }
 
