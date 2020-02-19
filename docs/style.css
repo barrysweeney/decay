@@ -5,6 +5,7 @@
   width: 400px;
   height: 400px;
   margin: 0 auto;
+  padding: 0.5em;
 }
 
 .item {
@@ -17,11 +18,11 @@ button {
   margin: 0.5em;
 }
 
-#startButtonContainer{
+#startButtonContainer {
   text-align: center;
 }
 
- #pauseAndResetButtonContainer {
+#pauseAndResetButtonContainer {
   text-align: center;
 }
 
@@ -32,22 +33,21 @@ h1 {
 #leftSection {
   width: 50%;
   float: left;
-  padding: 0.5em;
 }
 
 #rightSection {
   width: 50%;
   float: right;
-  padding: 0.5em;
 }
 
 #liveCounters {
+  text-align: center;
   padding: 0.5em;
 }
 
 @media screen and (max-width: 800px) {
-  #rightSection, #leftSection {
+  #rightSection,
+  #leftSection {
     width: 100%;
-    padding: 0.5em;
   }
 }
