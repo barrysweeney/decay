@@ -92,7 +92,7 @@ function makeTimeSteps() {
       clearInterval(id);
       if (undecayedNucleons <= 0) {
         startButton.addEventListener("click", startDecay);
-        resetButton.removeEventListener("click", reset);
+        // resetButton.removeEventListener("click", reset);
       }
     } else {
       startButton.removeEventListener("click", startDecay);
