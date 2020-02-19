@@ -20,6 +20,7 @@ let paused = false;
 
 pauseButton.addEventListener("click", pause);
 startButton.addEventListener("click", startDecay);
+createIcons();
 
 function startDecay() {
   setInitialConditions();
@@ -28,9 +29,18 @@ function startDecay() {
   makeTimeSteps();
 }
 
+function createIcons() {
+  for (let i = 1; i <= 10 ** 2; i++) {
+      const icon = document.createElement('i')
+      icon.className = "fas fa-atom"
+      icon.id = `item${i}`;
+      container.appendChild(icon);
+  }
+}
+
 function setInitialConditions() {
   promptForProbabilityOfDecay();
-  nucleonsCollection = document.getElementsByClassName("item");
+  nucleonsCollection = document.getElementsByClassName("fas fa-atom");
   nucleonsArray = Array.from(nucleonsCollection); // converts collection to array
   decayedNucleons = [];
   undecayedNucleons = nucleonsArray.length;
@@ -112,7 +122,7 @@ function changeTileColorOfDecayedNucleons() {
     // each iteration changes a tile to black
     if (nucleonsArray.length != 0) {
       indexToRemove = Math.floor(Math.random() * nucleonsArray.length);
-      nucleonsArray[indexToRemove].style.cssText = "background-color: black;";
+      nucleonsArray[indexToRemove].style.cssText = "color: black;";
       updateDecayedAndUndecayedNucleons();
     }
   }
@@ -155,10 +165,10 @@ function displayCounters() {
 
 function resetGrid() {
   for (i = 0; i < nucleonsArray.length; i++) {
-    nucleonsArray[i].style.cssText = "background-color: yellow;";
+    nucleonsArray[i].style.cssText = "color: yellow;";
   }
   for (i = 0; i < decayedNucleons.length; i++) {
-    decayedNucleons[i].style.cssText = "background-color: yellow;";
+    decayedNucleons[i].style.cssText = "color: yellow;";
   }
 }
 
