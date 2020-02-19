@@ -14,11 +14,14 @@
 
 button {
   padding: 10px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 0.5em;
 }
 
-#startButtonContainer, #pauseButtonContainer {
+#startButtonContainer{
+  text-align: center;
+}
+
+ #pauseAndResetButtonContainer {
   text-align: center;
 }
 

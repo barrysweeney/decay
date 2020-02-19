@@ -1,9 +1,9 @@
 // TODO: generate divs automatically
 // TODO: remove overlapping plots
-// TODO: add pause and reset functionality
 
 const startButton = document.getElementById("start");
 const pauseButton = document.getElementById("pause");
+const resetButton = document.getElementById("reset");
 const ctx = document.getElementById("decayChart").getContext("2d"); // chart js convention to use ctx
 let decayChart;
 let nucleonsCollection;
@@ -28,7 +28,6 @@ function startDecay() {
   makeTimeSteps();
 }
 
-
 function setInitialConditions() {
   promptForProbabilityOfDecay();
   nucleonsCollection = document.getElementsByClassName("item");
@@ -42,35 +41,44 @@ function setInitialConditions() {
   displayCounters();
 }
 
-function promptForProbabilityOfDecay(){
-  probabilityOfDecay = prompt(
-    "Please enter the probability of decay between 0 and 1"
-  );
-  if (probabilityOfDecay >= 1 || probabilityOfDecay <= 0) {
+function promptForProbabilityOfDecay() {
+  let invalidProbabilityEnterred = false;
+  do {
     probabilityOfDecay = prompt(
       "Please enter the probability of decay between 0 and 1"
     );
-  }
+    if (
+      probabilityOfDecay >= 1 ||
+      probabilityOfDecay <= 0 ||
+      isNaN(probabilityOfDecay)
+    ) {
+      invalidProbabilityEnterred = true;
+    } else {
+      invalidProbabilityEnterred = false;
+    }
+  } while (invalidProbabilityEnterred);
 }
 
-function pause(){
-  if(paused === false){
-    paused = true
-    pauseButton.innerHTML= "Resume";
-  }else{
+function pause() {
+  if (paused === false) {
+    paused = true;
+    pauseButton.innerHTML = "Resume";
+  } else {
     paused = false;
-    pauseButton.innerHTML= "Pause";
+    pauseButton.innerHTML = "Pause";
     makeTimeSteps();
   }
 }
 
 function makeTimeSteps() {
+  resetButton.addEventListener("click", reset);
   id = setInterval(frame, 1000);
   function frame() {
     if (undecayedNucleons <= 0 || paused === true) {
       clearInterval(id);
-      if(undecayedNucleons<=0){
-      startButton.addEventListener("click", startDecay);
+      if (undecayedNucleons <= 0) {
+        startButton.addEventListener("click", startDecay);
+        resetButton.removeEventListener("click", reset);
       }
     } else {
       startButton.removeEventListener("click", startDecay);
@@ -79,19 +87,32 @@ function makeTimeSteps() {
       updateCurrentConditions();
       changeTileColorOfDecayedNucleons();
       nucleonsDecayedThisTimeStep = 0; // resetting for next timeStep
-    displayCounters();
-    updateChart();
+      displayCounters();
+      updateChart();
     }
+  }
+}
+
+function reset() {
+  clearInterval(id);
+  startButton.addEventListener("click", startDecay);
+  setInitialConditions();
+  plotData();
+  resetGrid();
+  // this unpauses if reset has been pressed after the animation has been paused
+  if (paused === true) {
+    pause();
+  } else {
+    makeTimeSteps();
   }
 }
 
 function changeTileColorOfDecayedNucleons() {
   for (i = 0; i < nucleonsDecayedThisTimeStep; i++) {
+    // each iteration changes a tile to black
     if (nucleonsArray.length != 0) {
-      // each iteration changes a tile to black
       indexToRemove = Math.floor(Math.random() * nucleonsArray.length);
-      nucleonsArray[indexToRemove].style.cssText =
-        "background-color: black;";
+      nucleonsArray[indexToRemove].style.cssText = "background-color: black;";
       updateDecayedAndUndecayedNucleons();
     }
   }
@@ -124,8 +145,12 @@ function checkStateOfEachNucleon() {
 }
 
 function displayCounters() {
-  document.getElementById("timeStepsElapsed").innerHTML = `Time Steps Complete: ${numTimeSteps}`;
-  document.getElementById("undecayedNucleonsRemaining").innerHTML = `Undecayed Nucleons Remaining: ${undecayedNucleons}`;
+  document.getElementById(
+    "timeStepsElapsed"
+  ).innerHTML = `Time Steps Complete: ${numTimeSteps}`;
+  document.getElementById(
+    "undecayedNucleonsRemaining"
+  ).innerHTML = `Undecayed Nucleons Remaining: ${undecayedNucleons}`;
 }
 
 function resetGrid() {
