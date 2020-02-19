@@ -2,8 +2,6 @@
   display: grid;
   grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
   justify-items: stretch;
-  width: 400px;
-  height: 400px;
   margin: 0 auto;
   padding: 0.5em;
 }

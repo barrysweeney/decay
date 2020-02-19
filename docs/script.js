@@ -1,4 +1,4 @@
-// TODO: remove overlapping plots
+// TODO: allow user to change number of initial nucleons
 
 const startButton = document.getElementById("start");
 const pauseButton = document.getElementById("pause");
@@ -16,23 +16,29 @@ let xAxisTimeSteps = [];
 let yAxisUndecayedNucleons = [];
 let id;
 let paused = false;
+let simulationsRun = 0;
 
 pauseButton.addEventListener("click", pause);
 startButton.addEventListener("click", startDecay);
 createIcons(100);
 
 function startDecay() {
+  simulationsRun++;
   setInitialConditions();
-  plotData();
+  if (simulationsRun > 1) {
+    updateChart();
+  } else {
+    plotData();
+  }
   resetGrid();
   makeTimeSteps();
 }
 
 function createIcons(numberIcons) {
   for (let i = 1; i <= numberIcons; i++) {
-      const icon = document.createElement('i')
-      icon.className = "fas fa-atom"
-      container.appendChild(icon);
+    const icon = document.createElement("i");
+    icon.className = "fas fa-atom";
+    container.appendChild(icon);
   }
 }
 
