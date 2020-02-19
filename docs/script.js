@@ -1,4 +1,3 @@
-// TODO: generate divs automatically
 // TODO: remove overlapping plots
 
 const startButton = document.getElementById("start");
@@ -20,7 +19,7 @@ let paused = false;
 
 pauseButton.addEventListener("click", pause);
 startButton.addEventListener("click", startDecay);
-createIcons();
+createIcons(100);
 
 function startDecay() {
   setInitialConditions();
@@ -29,11 +28,10 @@ function startDecay() {
   makeTimeSteps();
 }
 
-function createIcons() {
-  for (let i = 1; i <= 10 ** 2; i++) {
+function createIcons(numberIcons) {
+  for (let i = 1; i <= numberIcons; i++) {
       const icon = document.createElement('i')
       icon.className = "fas fa-atom"
-      icon.id = `item${i}`;
       container.appendChild(icon);
   }
 }
