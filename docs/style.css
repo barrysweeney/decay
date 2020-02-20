@@ -5,6 +5,13 @@
   margin: 0 auto;
   padding: 0.5em;
 }
+.custom-range {
+  width: auto;
+}
+
+.custom-range::-webkit-slider-thumb {
+  background: grey
+}
 
 .item {
   border: 1px solid;
@@ -16,10 +23,11 @@ button {
   margin: 0.5em;
 }
 
-#startButtonContainer, #probablilitySliderContainer,#pauseAndResetButtonContainer  {
+#startButtonContainer,
+#probablilitySliderContainer,
+#pauseAndResetButtonContainer {
   text-align: center;
 }
-
 
 i {
   padding: 0.5em;

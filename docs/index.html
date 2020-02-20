@@ -15,22 +15,22 @@
     <div id="leftSection">
 
         <div id="probablilitySliderContainer">
-            <p>Probability of decay:</p>
-            <input type="range" min="1" max="9" value="5" class="slider" id="probabilitySlider">
+            <p>Probability of Decay:</p>
+            <input type="range" min="1" max="9" value="5" class="custom-range" id="probabilitySlider">
             <p>0.<span id="probabilityText"></span></p>
-          </div>
+        </div>
 
         <div id="startButtonContainer">
-            <button id="start">Start<i class="fas fa-radiation"></i></button>
+            <button id="start" class="btn btn-warning">Start<i class="fas fa-radiation"></i></button>
         </div>
 
         <div id="container">
         </div>
 
         <div id="pauseAndResetButtonContainer">
-            <button id="pause">Pause</button>
+            <button id="pause" class="btn btn-light">Pause<i class="fas fa-pause"></i></button>
 
-            <button id="reset">Reset</button>
+            <button id="reset" class="btn btn-light">Reset<i class="fas fa-undo"></i></button>
         </div>
 
         <div id="liveCounters">
