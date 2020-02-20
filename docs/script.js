@@ -3,7 +3,13 @@
 const startButton = document.getElementById("start");
 const pauseButton = document.getElementById("pause");
 const resetButton = document.getElementById("reset");
+const probabilitySlider = document.getElementById("probabilitySlider");
+const probabilityOfDecayText = document.getElementById(
+  "probabilityOfDecayText"
+);
 const ctx = document.getElementById("decayChart").getContext("2d"); // chart js convention to use ctx
+let probabilityText = document.getElementById("probabilityText");
+probabilityText.innerHTML = probabilitySlider.value; // sets default value set in html
 let decayChart;
 let nucleonsCollection;
 let nucleonsArray;
@@ -18,6 +24,7 @@ let id;
 let paused = false;
 let simulationsRun = 0;
 
+probabilitySlider.addEventListener("input", changeProbability);
 pauseButton.addEventListener("click", pause);
 startButton.addEventListener("click", startDecay);
 createIcons(100);
@@ -31,7 +38,12 @@ function startDecay() {
     plotData();
   }
   resetGrid();
-  makeTimeSteps();
+  // this unpauses if reset has been pressed after the animation has been paused
+  if (paused === true) {
+    pause();
+  } else {
+    makeTimeSteps();
+  }
 }
 
 function createIcons(numberIcons) {
@@ -42,8 +54,12 @@ function createIcons(numberIcons) {
   }
 }
 
+function changeProbability() {
+  probabilityText.innerHTML = this.value;
+}
+
 function setInitialConditions() {
-  promptForProbabilityOfDecay();
+  probabilityOfDecay = "0." + probabilityText.innerHTML;
   nucleonsCollection = document.getElementsByClassName("fas fa-atom");
   nucleonsArray = Array.from(nucleonsCollection); // converts collection to array
   decayedNucleons = [];
@@ -53,24 +69,6 @@ function setInitialConditions() {
   xAxisTimeSteps = [0];
   nucleonsDecayedThisTimeStep = 0;
   displayCounters();
-}
-
-function promptForProbabilityOfDecay() {
-  let invalidProbabilityEnterred = false;
-  do {
-    probabilityOfDecay = prompt(
-      "Please enter the probability of decay between 0 and 1"
-    );
-    if (
-      probabilityOfDecay >= 1 ||
-      probabilityOfDecay <= 0 ||
-      isNaN(probabilityOfDecay)
-    ) {
-      invalidProbabilityEnterred = true;
-    } else {
-      invalidProbabilityEnterred = false;
-    }
-  } while (invalidProbabilityEnterred);
 }
 
 function pause() {
@@ -92,10 +90,11 @@ function makeTimeSteps() {
       clearInterval(id);
       if (undecayedNucleons <= 0) {
         startButton.addEventListener("click", startDecay);
-        // resetButton.removeEventListener("click", reset);
+        probabilitySlider.addEventListener("input", changeProbability);
       }
     } else {
       startButton.removeEventListener("click", startDecay);
+      probabilitySlider.removeEventListener("input", changeProbability);
       // simulate all the remaining undecayed nucleons and check them each individually
       checkStateOfEachNucleon();
       updateCurrentConditions();
@@ -110,6 +109,7 @@ function makeTimeSteps() {
 function reset() {
   clearInterval(id);
   startButton.addEventListener("click", startDecay);
+  probabilitySlider.addEventListener("input", changeProbability);
   setInitialConditions();
   plotData();
   resetGrid();

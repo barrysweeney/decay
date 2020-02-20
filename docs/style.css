@@ -16,13 +16,10 @@ button {
   margin: 0.5em;
 }
 
-#startButtonContainer {
+#startButtonContainer, #probablilitySliderContainer,#pauseAndResetButtonContainer  {
   text-align: center;
 }
 
-#pauseAndResetButtonContainer {
-  text-align: center;
-}
 
 i {
   padding: 0.5em;
