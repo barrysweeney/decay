@@ -8,7 +8,6 @@ A few options are available to get up and running with the simulations:
 * Code editor such as VSCode recommended. It can be downloaded from [here](https://code.visualstudio.com/)
 * Git - see install guide [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * The Odin Project has a guide for configuring Git and Github [here](https://www.theodinproject.com/courses/web-development-101/lessons/setting-up-git)
-# Deployment
 # Built With
 * Decay plots using [Chart.js](https://www.chartjs.org/)
 * Compiled CSS from [Bootstrap](https://getbootstrap.com/)
