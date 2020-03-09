@@ -17,3 +17,4 @@ See guidelines [here](https://github.com/barrysweeney/decay/blob/master/contribu
 # License
 [MIT](https://github.com/barrysweeney/decay/blob/master/LICENSE)
 # Acknowledgements
+Holy Cross College, Department of Physics
