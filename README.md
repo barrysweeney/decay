@@ -9,7 +9,9 @@ A few options are available to get up and running with the simulations:
 A code editor such as VSCode is recommended. It can be downloaded from [here.](https://code.visualstudio.com/)
 # Deployment
 # Built With
-The exponential decay curve is plotted using [Chart.js](https://www.chartjs.org/) 
+* The exponential decay curve is plotted using [Chart.js](https://www.chartjs.org/)
+* Compiled CSS from [Bootstrap](https://getbootstrap.com/)
+* Icons from [Font Awesome](https://fontawesome.com/)
 # Contributing
 # License
 # Acknowledgements
