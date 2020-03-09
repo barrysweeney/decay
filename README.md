@@ -13,5 +13,6 @@ A few options are available to get up and running with the simulations:
 * Compiled CSS from [Bootstrap](https://getbootstrap.com/)
 * Icons from [Font Awesome](https://fontawesome.com/)
 # Contributing
+See guidelines [here](https://github.com/barrysweeney/decay/blob/master/contributing.md)
 # License
 # Acknowledgements
