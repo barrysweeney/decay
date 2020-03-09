@@ -15,4 +15,5 @@ A few options are available to get up and running with the simulations:
 # Contributing
 See guidelines [here](https://github.com/barrysweeney/decay/blob/master/contributing.md)
 # License
+[MIT](https://github.com/barrysweeney/decay/blob/master/LICENSE)
 # Acknowledgements
