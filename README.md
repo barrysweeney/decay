@@ -5,8 +5,9 @@ A few options are available to get up and running with the simulations:
 * Index page available [here](https://barrysweeney.github.io/decay/) 
 * Clone the repo: <code>git clone https://github.com/barrysweeney/decay.git</code>
 # Prerequisites
-# Installing
-A code editor such as VSCode is recommended. It can be downloaded from [here.](https://code.visualstudio.com/)
+* Code editor such as VSCode recommended. It can be downloaded from [here](https://code.visualstudio.com/)
+* Git - see install guide [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+* The Odin Project has a guide for configuring Git and Github [here](https://www.theodinproject.com/courses/web-development-101/lessons/setting-up-git)
 # Deployment
 # Built With
 * Decay plots using [Chart.js](https://www.chartjs.org/)
